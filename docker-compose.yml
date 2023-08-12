@@ -5,7 +5,12 @@ services:
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
     image: yeahme49/frigatetensor:latest
-    shm_size: "64mb" # update for your cameras based on calculation above
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video
+      - FRIGATE_RTSP_PASSWORD=password
+    shm_size: "1g" # update for your cameras based on calculation above
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./config.yml:/config/config.yml:ro
