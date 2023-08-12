@@ -4,7 +4,7 @@ services:
     container_name: frigatetensor
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: yeahme49/frigatetensor:latest
+    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
