@@ -1,1 +1,24 @@
-
+version: "3.8"
+services:
+  frigatetensor:
+    container_name: frigatetensor
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video
+      - FRIGATE_RTSP_PASSWORD=password
+    shm_size: "64mb" # update for your cameras based on calculation above
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config.yml:/config/config.yml:ro
+      - /var/lib/frigate:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "5000:5000"
+      - "1935:1935" # RTMP feeds
