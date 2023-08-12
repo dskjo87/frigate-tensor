@@ -20,5 +20,5 @@ services:
         tmpfs:
           size: 1000000000
     ports:
-      - "5000:5000"
-      - "1935:1935" # RTMP feeds
+      - "5010:5010"
+      - "11000:11000" # RTMP feeds
